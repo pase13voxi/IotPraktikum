@@ -1,4 +1,4 @@
-package szenario2;
+package szenario3;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import szenario1.LinuxInteractor;
 
-public class Szenario2 {
+public class Szenario3 {
 	final static int[] FILEAMOUNT = { 0, 1, 5,};// 10};//, 100, 1000, 10000 };
 	final static String GSUTILPATH ="/home/coxtor/.opt/google-cloud-sdk/bin/gsutil";
 	final static String[] FILENAME = {	"0Byte", "1Byte", "512Byte", "1KB", "512KB", "1MB"};//, "512MB", "1GB", "4GB" };
@@ -33,7 +33,16 @@ public class Szenario2 {
 			for(int i: FILEAMOUNT){
 				System.out.println("Transferring " + file + " " + i + " times");
 				for(int j=0;j < i;j++){
-					
+					/*
+					 * 
+					 * 
+					 * HIER MÜSSEN THREADS DANN HIN
+					 * 
+					 * 
+					 * 
+					 * 
+					 * 
+					 */
 					String result = interactor.executeCommand(command, true);
 					tmpElapsedTime+= interactor.elapsedTime;
 				}
