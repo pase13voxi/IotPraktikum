@@ -6,12 +6,25 @@ import java.io.IOException;
 
 import szenario1.LinuxInteractor;
 
-public class Szenario3 {
+public class Szenario3 extends Thread {
 	final static int[] FILEAMOUNT = { 0, 1, 5,};// 10};//, 100, 1000, 10000 };
 	final static String GSUTILPATH ="/home/coxtor/.opt/google-cloud-sdk/bin/gsutil";
 	final static String[] FILENAME = {	"0Byte", "1Byte", "512Byte", "1KB", "512KB", "1MB"};//, "512MB", "1GB", "4GB" };
 	final static String BASEPATH = System.getProperty("user.dir") + "/../data/";
 	final static String ResultsFileName = "Szenario2_Realdata-Sequentiell-"+ System.currentTimeMillis() +".txt";
+	
+	
+	public Szenario3(Object parameter){
+		String command = parameter.toString();
+	}
+	
+	public void run(){
+		LinuxInteractor interactor = new LinuxInteractor();
+		String result = interactor.executeCommand(this.command, true);
+
+	}
+	
+	
 	public static void main(String[] args) throws IOException {
 	BufferedWriter output;
 	
@@ -27,12 +40,21 @@ public class Szenario3 {
 		System.out.println("Transfer started");
 		for(String file: FILENAME){
 			String command = GSUTILPATH +" cp " + BASEPATH + file + " gs://iot-test_hda ";
-			LinuxInteractor interactor = new LinuxInteractor();
+			
 			dataToWrite = "";
 			long tmpElapsedTime = 0;
 			for(int i: FILEAMOUNT){
 				System.out.println("Transferring " + file + " " + i + " times");
 				for(int j=0;j < i;j++){
+					/*
+					 * 
+					 *  Noch nicht lauffähig aber von der idee her halt
+					 * 
+					 * 
+					 */
+
+					Thread r = new Szenario3(command);
+					new Thread(r).start();
 					/*
 					 * 
 					 * 
@@ -43,7 +65,6 @@ public class Szenario3 {
 					 * 
 					 * 
 					 */
-					String result = interactor.executeCommand(command, true);
 					tmpElapsedTime+= interactor.elapsedTime;
 				}
 				dataToWrite += tmpElapsedTime + " , ";
