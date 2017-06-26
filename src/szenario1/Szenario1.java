@@ -13,6 +13,7 @@ public class Szenario1 {
 
 	public static void main(String[] args) throws IOException {
 	BufferedWriter output;
+	//write results in a textfile
 	output = new BufferedWriter(new FileWriter(ResultsFileName, false));
 	String dataToWrite = "";
 	for(int i : FILEAMOUNT){
@@ -24,10 +25,11 @@ public class Szenario1 {
 	output.close();
 		System.out.println("Transfer started");
 		for(String file: FILENAME){
+			//prepare and execute command for gsutils
 			String command = GSUTILPATH +" cp " + BASEPATH + file + " gs://iot-test_hda ";
 			LinuxInteractor interactor = new LinuxInteractor();
 			String result = interactor.executeCommand(command, true);
-
+			//write messurements in the textfile
 			System.out.println("Transferred " + file + " in " +  interactor.elapsedTime + " Ms (" + interactor.elapsedTime/1000 +" sec.)");	
 			output = new BufferedWriter(new FileWriter(ResultsFileName, true));
 			dataToWrite = "";

@@ -52,7 +52,7 @@ public class Szenario3 extends Thread {
 
 				Vector<Long> returnValues = new Vector<>();
 				for (int j = 0; j < amountVal; j++) {
-					Thread r = new Szenario3(/* j, FILENAME[fileSize], */ command, returnValues);
+					Thread r = new Szenario3(command, returnValues);
 					new Thread(r).start();
 				}
 
@@ -61,7 +61,6 @@ public class Szenario3 extends Thread {
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
